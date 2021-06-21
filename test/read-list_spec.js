@@ -56,7 +56,7 @@ describe('read-list Node', function () {
     { id: "n2", type: "helper" }];
     //Create the test file
     const content = '{"testlist":["1"]}'
-    fs.writeFile('./testfile', content, err => {
+    fs.writeFile('./testfile.log', content, err => {
       if (err) {
         console.error(err)
         return
@@ -72,7 +72,7 @@ describe('read-list Node', function () {
             done(err)
           }
         });
-        n1.receive({ filename: "./testfile", listname: "testlist" });
+        n1.receive({ filename: "./testfile.log", listname: "testlist" });
       });
     });
   })
@@ -82,7 +82,7 @@ describe('read-list Node', function () {
     { id: "n2", type: "helper" }];
     //Create the test file
     const content = '{"testlist":["1", "2"]}'
-    fs.writeFile('./testfile', content, err => {
+    fs.writeFile('./testfile.log', content, err => {
       if (err) {
         console.error(err)
         return
@@ -98,7 +98,7 @@ describe('read-list Node', function () {
             done(err)
           }
         });
-        n1.receive({ filename: "./testfile", listname: "testlist" });
+        n1.receive({ filename: "./testfile.log", listname: "testlist" });
       });
     });
   })
