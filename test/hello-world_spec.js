@@ -26,10 +26,8 @@ describe('hello-world Node', function () {
       n2.on("input", function (msg) {
         try {
           msg.should.have.property('payload', 'hello world');
-          console.log("ok")
           done();
         } catch (err) {
-          console.log("error")
           done(err)
         }
       });

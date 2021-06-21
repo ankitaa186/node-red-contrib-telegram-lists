@@ -5,11 +5,13 @@
   "main": "index.js",
   "node-red": {
     "nodes": {
-      "hello-world": "hello-world.js"
+      "hello-world": "hello-world.js",
+      "read-list": "read-list.js"
     }
   },
   "scripts": {
-    "test": "mocha \"test/**/*_spec.js\""
+    "test": "mocha \"test/**/*_spec.js\"",
+    "debug": ""
   },
   "repository": {
     "type": "git",
