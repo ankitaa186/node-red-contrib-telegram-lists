@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    RED.nodes.registerType('hello-world', {
+    RED.nodes.registerType('read-list', {
         category: 'function',
         color: '#a6bbcf',
         defaults: {
@@ -9,18 +9,22 @@
         outputs: 1,
         icon: "file.png",
         label: function () {
-            return this.name || "hello-world";
+            return this.name || "read-list";
         }
     });
 </script>
 
-<script type="text/html" data-template-name="hello-world">
+<script type="text/html" data-template-name="read-list">
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
+        <label for="node-input-name"><i class="fa fa-tag"></i> File Path</label>
+        <input type="text" id="node-input-filename" placeholder="File Path">
+        <label for="node-input-name"><i class="fa fa-tag"></i> List Name</label>
+        <input type="text" id="node-input-listname" placeholder="List Name">
     </div>
 </script>
 
-<script type="text/html" data-help-name="hello-world">
-    <p>A simple node that returns hello world on invocation</p>
+<script type="text/html" data-help-name="read-list">
+    <p>A simple node to read list from file</p>
 </script>
