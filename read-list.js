@@ -3,7 +3,7 @@ module.exports = function (RED) {
     var util = require("util");
     var vm = require("vm");
     var fs = require("fs");
-    var readListFs = require("./read-list-fs.js")
+    var readListFs = require("./list-fs.js")
 
     function ReadList(config) {
         RED.nodes.createNode(this, config);
@@ -25,7 +25,7 @@ module.exports = function (RED) {
             console.log("### error ###")
             if (fileContent && fileContent.length > 0) {
                 var listcontent = []
-                listcontent = readListFs.splitList(readListFs.getList(fileContent, listname, "br"), 3500)
+                listcontent = readListFs.splitList(readListFs.getList(fileContent, listname, "\n"), 3500)
                 for (const item of listcontent) {
                     msg.payload = item
                     node.send(msg)
@@ -33,6 +33,8 @@ module.exports = function (RED) {
             } else {
                 node.warn("File " + filename + " is empty")
                 console.log("### empty ###")
+                msg.payload = ''
+                node.send(msg)
             }
         });
     }

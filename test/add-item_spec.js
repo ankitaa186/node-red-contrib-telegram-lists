@@ -1,5 +1,5 @@
 var helper = require("node-red-node-test-helper");
-var readListNode = require("../read-list.js");
+var addItemNode = require("../add-item.js");
 var readListFs = require("../list-fs.js");
 var util = require("util");
 var vm = require("vm");
@@ -7,7 +7,7 @@ var fs = require("fs");
 const { assert } = require("assert");
 helper.init(require.resolve('node-red'));
 
-describe('read-list Node', function () {
+describe('add-item Node', function () {
 
   beforeEach(function (done) {
     helper.startServer(done);
@@ -19,8 +19,8 @@ describe('read-list Node', function () {
   });
 
   it('should be loaded', function (done) {
-    var flow = [{ id: "n3", type: "read-list", name: "test name" }];
-    helper.load(readListNode, flow, function () {
+    var flow = [{ id: "n3", type: "add-item", name: "test name" }];
+    helper.load(addItemNode, flow, function () {
       var n1 = helper.getNode("n3");
       try {
         n1.should.have.property('name', 'test name');
@@ -63,7 +63,7 @@ describe('read-list Node', function () {
   });
 
   it('should return one element', function (done) {
-    var flow = [{ id: "n1", type: "read-list", name: "test name", wires: [["n2"]] },
+    var flow = [{ id: "n1", type: "add-item", name: "test name", wires: [["n2"]] },
     { id: "n2", type: "helper" }];
     //Create the test file
     const content = '{"testlist":["1"]}'
@@ -72,33 +72,7 @@ describe('read-list Node', function () {
         console.error(err)
         return
       }
-      helper.load(readListNode, flow, function () {
-        var n2 = helper.getNode("n2");
-        var n1 = helper.getNode("n1");
-        n2.on("input", function (msg) {
-          try {
-            msg.should.have.property('payload', '1. 1');
-            done();
-          } catch (err) {
-            done(err)
-          }
-        });
-        n1.receive({ filename: "./testfile.log", listname: "testlist" });
-      });
-    });
-  })
-
-  it('should return 2 element', function (done) {
-    var flow = [{ id: "n1", type: "read-list", name: "test name", wires: [["n2"]] },
-    { id: "n2", type: "helper" }];
-    //Create the test file
-    const content = '{"testlist":["1", "2"]}'
-    fs.writeFile('./testfile.log', content, err => {
-      if (err) {
-        console.error(err)
-        return
-      }
-      helper.load(readListNode, flow, function () {
+      helper.load(addItemNode, flow, function () {
         var n2 = helper.getNode("n2");
         var n1 = helper.getNode("n1");
         n2.on("input", function (msg) {
@@ -109,7 +83,7 @@ describe('read-list Node', function () {
             done(err)
           }
         });
-        n1.receive({ filename: "./testfile.log", listname: "testlist" });
+        n1.receive({ filename: "./testfile.log", listname: "testlist", payload: "2" });
       });
     });
   })
